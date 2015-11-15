@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Health Support Tracking System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Datepicker -->
+    <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  </head>
+  
+  <body class="hold-transition skin-green-light sidebar-mini">
+    <div class="wrapper">
+
+      <!-- Main Header -->
+      <header class="main-header">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini">HSTS</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg">HSTS</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">             
+
+              <!-- Notifications Menu -->
+              <li class="dropdown notifications-menu">
+                <!-- Menu toggle button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning">10</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">You have 10 notifications</li>
+                  <li>
+                    <!-- Inner Menu: contains the notifications -->
+                    <ul class="menu">
+                      <li><!-- start notification -->
+                        <a href="#">
+                          <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                        </a>
+                      </li><!-- end notification -->
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">View all</a></li>
+                </ul>
+              </li>              
+              <!-- User Account Menu -->
+              <li class="dropdown user user-menu">
+                <!-- Menu Toggle Button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <!-- The user image in the navbar-->
+                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                  <span class="hidden-xs">Dr Nhat Anh</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- The user image in the menu -->
+                  <li class="user-header">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <p>
+                      Dr Nhat Anh
+                      <small>Member since Nov. 2012</small>
+                    </p>
+                  </li>                  
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>Dr Nhat Anh</p>
+              <!-- Status -->
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+
+          <!-- search form (Optional) -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+          <!-- /.search form -->
+
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user-md"></i> <span>Nurse</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="register.html"><i class="fa fa-circle-o"></i> Register Patient</a></li>                
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-stethoscope"></i>
+                <span>Doctor</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="listpatients.html"><i class="fa fa-circle-o"></i> Patients</a></li>
+                <li><a href="Appointment.html"><i class="fa fa-circle-o"></i> Appointment</a></li>                
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa  fa-user-plus"></i>
+                <span>Admin</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">                
+                <li><a href="#"><i class="fa fa-circle-o"></i> Staffs</a></li>                
+              </ul>
+            </li>
+          </ul><!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Diagnostic
+            <small>Patient 2</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Patient 2</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+          <!-- Your Page Content Here --> 
+          <div class="row" style="margin: 2px;">
+            <a href="patient2.html"><button type="submit" class="btn btn-primary pull-left">
+            <i class="fa fa-hand-o-left"></i> History Treatment</button></a>
+          </div>
+          <!-- row -->
+          <div class="row">            
+            <div class="col-md-12">              
+              <div class="box box-default">
+                <!-- form start -->
+                <form class="form-horizontal">  
+                  <div class="row">
+                   
+                    <div class="col-md-6">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Patient's Profile</h3>
+                      </div><!-- /.box-header -->
+                  
+                      <div class="box-body">
+                      <div class="form-group">
+                        <label for="Name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-6">
+                          <input type="text" readonly="readonly" class="form-control" value="Patient 1">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Birthday" class="col-sm-2 control-label">Age</label>
+                        <div class="col-sm-2">
+                          <input type="text" readonly="readonly" class="form-control" value="31">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Gender" class="col-sm-2 control-label">Gender</label>                      
+                        <div class="col-sm-3">
+                          <input type="text" readonly="readonly" class="form-control" value="Male">
+                        </div>
+                      </div> 
+                      <div class="form-group">
+                        <label for="Weight" class="col-sm-2 control-label">Weight</label>
+                        <div class="col-sm-2">
+                          <input type="text" readonly="readonly" class="form-control" value="82">
+                        </div>
+                        <label for="Weight" class="col-sm-1 control-label"> Kg</label>
+                      </div>
+                      <div class="form-group">
+                        <label for="Height" class="col-sm-2 control-label">Height</label>
+                        <div class="col-sm-2">
+                          <input type="text" readonly="readonly" class="form-control" value="1.66">
+                        </div>
+                        <label for="Height" class="col-sm-1 control-label"> m</label>
+                      </div>                    
+                      <div class="form-group">
+                        <label for="Medicalhistory" class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-10">
+                          <textarea type="text" readonly="readonly" class="form-control" id="Medicalhistory" 
+                            style="width: 100%; height: 120px; font-size: 14px;" placeholder="Medical history">
+                          </textarea> 
+                        </div>
+                      </div> 
+                      </div><!-- /.box-body --> 
+                    </div><!-- /.col -->
+
+                    <div class="col-md-6">
+                      <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-th"></i> Prescriptions</h3>
+                      </div><!-- /.box-header -->                  
+                      <div class="box-body sidebar">                                     
+                        <div class="form-group">
+                          <label for="Name" class="col-sm-2 control-label">Diagnostic</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" value="Beo phi do 1">
+                          </div>
+                        </div>
+                        <ul class="sidebar-menu">
+            <li class="active treeview">
+              <a href="#">
+                <span>Medicine</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="#">
+                    <table class="table table-striped" id="medicine">
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Thuoc</th>
+                        <th>Ngay uong</th>
+                        <th>moi lan</th>
+                      </tr>
+                      <tr>
+                        <td>1/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Thuoc 1</option>
+                            <option>Thuoc 2</option>
+                            <option>Thuoc 3</option>
+                            <option>Thuoc 4</option>                          
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" placeholder="so lan"></td>
+                        <td><input type="text" class="form-control" style="width: 100px;" placeholder="so lan"></td>
+                      </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary" onclick="addRowMedicine('medicine')">Add</button>
+                  </a></li>
+              </ul><!-- /.treeview-menu -->
+            </li><!-- /.treeview -->
+            <li class="treeview">
+              <a href="#">
+                <span>Foods</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#">
+                    <table class="table table-striped" id="Foods">
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Name</th>
+                        <th>Quantitative</th>                        
+                      </tr>
+                      <tr>
+                        <td>1/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Rau</option>
+                            <option>Cơm</option>
+                            <option>Trái cây</option>
+                            <option>Bia Rượu</option>                          
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" value="Nhiều"></td>
+                      </tr>
+                      <tr>
+                        <td>2/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Cơm</option>
+                            <option>Rau</option>                            
+                            <option>Trái cây</option>
+                            <option>Bia Rượu</option>                          
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" value="Ít"></td>
+                      </tr>
+                      <tr>
+                        <td>3/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Trái cây</option>
+                            <option>Rau</option>
+                            <option>Cơm</option>                            
+                            <option>Bia Rượu</option>                          
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" value="Nhiều"></td>
+                      </tr>
+                      <tr>
+                        <td>4/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Bia Rượu</option>
+                            <option>Rau</option>
+                            <option>Cơm</option>
+                            <option>Trái cây</option>                                                      
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" value="Ít"></td>
+                      </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary" onclick="addRowFoods('Foods')">Add</button>
+                  </a></li>
+              </ul><!-- /.treeview-menu -->
+            </li><!-- /.treeview -->
+            <li class="treeview">
+              <a href="#">
+                <span>Practice</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#">
+                    <table class="table table-striped" id="Practice">
+                      <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Name</th>
+                        <th>Quantitative</th>                        
+                      </tr>
+                      <tr>
+                        <td>1/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Chạy bộ</option>
+                            <option>Đi bộ</option>
+                            <option>Chơi bóng bàn</option>                          
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" value="20 phút"></td>
+                      </tr>
+                      <tr>
+                        <td>2/</td>
+                        <td>
+                          <select class="form-control">
+                            <option>Chơi bóng bàn</option>
+                            <option>Chạy bộ</option>
+                            <option>Đi bộ</option>                                                      
+                          </select>
+                        </td>
+                        <td><input type="text" class="form-control" style="width: 100px;" value="30 phút"></td>
+                      </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary" onclick="addRowPractice('Practice')">Add</button>
+                  </a></li>
+              </ul><!-- /.treeview-menu -->
+            </li><!-- /.treeview -->
+                </ul><!-- /.sidebar-menu --> 
+                <div class="form-group" style="margin-top: 15px;">
+                      <label for="Appointment" class="col-sm-2 control-label">Appointment</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="text" id="Appointment" data-provide="Appointment">
+                      </div>
+                        </div>       
+                        <div class="form-group">
+                      <label for="Note" class="col-sm-2 control-label">Note</label>
+                      <div class="col-sm-10">
+                        <textarea type="text" class="form-control" id="Note" 
+                        style="width: 100%; height: 120px; font-size: 14px;" placeholder="Note">
+                        -Ăn nhiều bữa, không bỏ bữa, ăn đúng giờ, hạn chế đồ ăn đã qua chế biến.
+                        -Uống thuốc sau khi ăn, uống nhiều nước, không uống thuốc với sữa, không sử dụng các loại thuốc khác để giảm cân như thuốc lợi tiểu.
+                        -Vận động tích cực, tập 30 phút mỗi lần, 2 lần sáng và tối.
+                        </textarea> 
+                      </div>
+                        </div>
+                      </div><!-- /.box-body -->                                            
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->           
+                
+                  <div class="box-footer">
+                  <div class="col-md-6">
+                    <p>Health Support Tracking System</p>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                  </div>
+                  </div><!-- /.footer -->
+                </form><!-- /.form -->              
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row --> 
+          <div class="row" style="margin: 2px;">
+            <a href="patient2.html"><button type="submit" class="btn btn-primary pull-left">
+            <i class="fa fa-hand-o-left"></i> History Treatment</button></a>
+          </div>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+          Version 1.0.0.1
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+      </footer>     
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- Datepicker -->
+    <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+    <!-- script Add -->
+    <script type="text/javascript">
+                 
+                $('#Appointment').datepicker({
+                    format: 'dd/mm/yyyy',
+                    
+                  });
+                var countMedicine = 2;
+                var countFoods = 5;
+                var countPractice = 3;
+                
+                function addRowMedicine(tableID) {
+                    var tableElement = document.getElementById(tableID);
+                    var newRow = tableElement.insertRow(tableElement.rows.length);
+                    var newCell;
+                    
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = countMedicine + "/";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<select class='form-control'>"
+                            + "<option>Thuoc 1</option>"
+                            + "<option>Thuoc 2</option>"
+                            + "<option>Thuoc 3</option>"
+                            + "<option>Thuoc 4</option>"
+                            + "</select>";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<input type='text' class='form-control' style='width: 100px;' placeholder='so lan'>";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<input type='text' class='form-control' style='width: 100px;' placeholder='so lan'>";
+
+                    countMedicine++;
+                    return newRow;
+                };
+                function addRowFoods(tableID) {
+                    var tableElement = document.getElementById(tableID);
+                    var newRow = tableElement.insertRow(tableElement.rows.length);
+                    var newCell;
+                    
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = countFoods + "/";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<select class='form-control'>"
+                            + "<option>Rau</option>"
+                            + "<option>Cơm</option>"
+                            + "<option>Trái cây</option>"
+                            + "<option>Bia Rượu</option>"
+                            + "</select>";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<input type='text' class='form-control' style='width: 100px;' placeholder='so lan'>";                    
+
+                    countFoods++;
+                    return newRow;
+                };
+                function addRowPractice(tableID) {
+                    var tableElement = document.getElementById(tableID);
+                    var newRow = tableElement.insertRow(tableElement.rows.length);
+                    var newCell;
+                    
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = countPractice + "/";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<select class='form-control'>"
+                            + "<option>chạy bộ</option>"
+                            + "<option>Đi bộ</option>"
+                            + "<option>Chơi bóng bàn</option>"
+                            + "</select>";
+                    newCell = newRow.insertCell(newRow.cells.length);
+                    newCell.innerHTML = "<input type='text' class='form-control' style='width: 100px;' placeholder='so lan'>";                    
+
+                    countPractice++;
+                    return newRow;
+                }
+    </script>
+
+  </body>
+</html>
