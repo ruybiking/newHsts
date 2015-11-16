@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+
+<h4>Practices</h4>
+<table class="table table-striped" id="Practice">
+    <tr>
+        <th style="width: 10px">#</th>
+        <th>Name</th>
+        <th>Times</th>
+        <th>Quantitative</th>
+        <th>Advice</th>
+    </tr>
+    <tr th:each="practiceTreatment,row : ${TREATMENT.practiceTreatmentList}">
+        <td th:text="${row.count}"></td>
+
+        <td style="min-width: 155px;">
+            <input th:value="${practiceTreatment.practice.name}" readonly="readonly" class="form-control"/>
+        </td>
+        <td style="min-width: 120px;">
+            <input th:value="${practiceTreatment.numberOfTime}" style="text-align: right;" readonly="readonly" class="form-control"/>
+        </td>
+        <td>
+            <input th:value="${practiceTreatment.timeDuration}" readonly="readonly" class="form-control"/>
+        </td>
+        <td>
+            <input th:value="${practiceTreatment.advice}" readonly="readonly" class="form-control"/>
+        </td>
+    </tr>
+</table>
+<div class="form-group" style="margin-top: 15px;" th:if="${DATAPRACS != null}">
+    <label class="col-md-3 control-label">Practice Data</label>
+    <a class="btn btn-link" data-toggle="modal" data-target="#practiceResult">View Detail</a>
+    <a class="btn btn-primary" id="showChart" onclick="showChart()">View Patient Practice</a>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label">Kcal Estimate</label>
+
+    <div class="col-md-2">
+        <input readonly="readonly" style="text-align: right;" th:value="${#numbers.formatDecimal(TREATMENT.caloriesBurnEveryday, 1, 'POINT', 0, 'COMMA')}" type="text" class="form-control hsts" />
+    </div>
+    <label class="col-md-1 control-label">Kcal/Day</label>
+</div>
+</body>
+</html>

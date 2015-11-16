@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="body">
+
+    <section class="content-header">
+        <h1>
+            Search Accounts
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="listuser.html">Admin</a></li>
+            <li class="active">Accounts</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Your Page Content Here -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header" style="padding: 0px;">
+                        <div class="form-group">
+                            <form action="adminReg" method="POST" style="padding-left: 12px;padding-top: 12px"
+                                  enctype="multipart/form-data">
+                                <input type="file" name="excel" id="excel" data-filename-placement="inside"
+                                       style="float:left;" onchange="check_file()"/>
+                                <!--<button class="btn btn-default" style="float:left; margin-right: 5px;"-->
+                                        <!--onclick="downloadExcel()">Download Excel Template-->
+                                <!--</button>-->
+                                <a href="/static/Template.xlsx" download="Template.xlsx" class="btn btn-default" style="float:left; margin-right: 5px;">
+                                    Download Excel Template
+                                </a>
+                                <input type="submit" value="Insert Account" class="btn btn-primary"/>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="listAccount" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>UserName</th>
+                                <th>Role</th>
+                                <th>Gender</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-body"></tbody>
+                            <!--<tbody id="table-body"><tr><td>1</td><td>doctor</td><td>Doctor</td><td>FEMALE</td><td><a href="/account?id=1" class="btn btn-primary" style="margin-right: 5px;float: left;">Update</a></td></tr><tr><td>2</td><td>nutrition</td><td>Nutrition</td><td>FEMALE</td><td><a href="/account?id=2" class="btn btn-primary" style="margin-right: 5px;float: left;">Update</a></td></tr><tr><td>3</td><td>nurse</td><td>Nurse</td><td>FEMALE</td><td><a href="/account?id=3" class="btn btn-primary" style="margin-right: 5px;float: left;">Update</a></td></tr><tr><td>4</td><td>staff</td><td>Staff</td><td>FEMALE</td><td><a href="/account?id=4" class="btn btn-primary" style="margin-right: 5px;float: left;">Update</a></td></tr><tr><td>5</td><td>patient</td><td>Patient</td><td>FEMALE</td><td><a href="/account?id=5" class="btn btn-primary" style="margin-right: 5px;float: left;">Update</a></td></tr><tr><td>6</td><td>admin</td><td>Admin</td><td>FEMALE</td><td><a href="/account?id=6" class="btn btn-primary" style="margin-right: 5px;float: left;">Update</a></td></tr></tbody>-->
+                            <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>UserName</th>
+                                <th>Role</th>
+                                <th>Gender</th>
+                                <th></th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <script th:src="@{/static/bower/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/bower/admin-lte/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/static/bower/admin-lte/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/bootstrap.file-input.js}">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "/accountList",
+                data: {}
+            }).done(function (data) {
+                console.log(data);
+                $("#table-body").html("");
+                var bodyContent = "";
+                if (data != null) {
+
+                    $.each(data, function (key, element) {
+                        bodyContent += '<tr>' +
+                                '<td>' + (key + 1) + '</td>' +
+                                '<td>' + element.username + '</td>' +
+                                '<td>' + element.role.name + '</td>' +
+                                '<td>' + element.gender + '</td>' +
+                                '<td>' +
+                                '<a href="/account?id='+ element.id +'" class = "btn btn-primary" style="margin-right: 5px;float: left;">Update</a>';
+                        if(element.role.name != "Admin"){
+                            if (element.status == 1) {
+                                bodyContent +='<form action="deleteAccount" method="GET" onsubmit="return ask()" style="float: left;">' +
+                                        '<input type="hidden" name="id" value="' + element.id + '"/>' +
+                                        '<input type="submit" value="Delete" class="btn btn-danger" />' +
+                                        '</form>';
+                            }
+                        }
+                        bodyContent += '</td>' +
+                                '</tr>';
+                    });
+                }
+                $("#table-body").html(bodyContent);
+                $("#listAccount").DataTable();
+            });
+        });
+
+
+        $('input[type=file]').bootstrapFileInput();
+
+        function getExtension(filename) {
+            var parts = filename.split('.');
+            return parts[parts.length - 1];
+        }
+
+        function isExcel(filename) {
+            var ext = getExtension(filename);
+            switch (ext.toLowerCase()) {
+                case 'xls':
+                    return true;
+                case 'xlsx':
+                    return true;
+            }
+            return false;
+        }
+        $(function () {
+            $('form').submit(function () {
+                function failValidation(msg) {
+                    alert(msg); // just an alert for now but you can spice this up later
+                    return false;
+                }
+
+                var file = $('input[type=file]');
+                if (!isExcel(file.val())) {
+                    return failValidation('Please select a valid excel file.');
+                }
+            });
+
+        });
+
+        function ask(){
+            var r = confirm("Do you want to delete this account ?");
+            if(r == true){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</div>
+<!-- /.content-wrapper -->
+
+</body>
+</html>

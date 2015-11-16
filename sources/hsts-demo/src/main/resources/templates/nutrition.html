@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="body">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Nutrition -
+            <small style="color: green; font-size:15.5px" th:text="${APPOINTMENT.medicalRecord.patient.account.fullName}">Patient</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Nutrition</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default">
+                    <div class="box-body">
+                        <!-- form start -->
+                        <form class="form-horizontal" th:action="nutrition" id="mainForm"
+                              method="get" th:object="${model}" data-toggle="validator">
+                            <input type="hidden" name="appointmentId" th:value="${APPOINTMENT.id}"/>
+                            <!-- Custom Tabs (Pulled to the left) -->
+                            <div class="nav-tabs-custom" style="box-shadow: none;">
+                                <ul class="nav nav-tabs">
+                                    <li class="active" id="li_tab_1-1">
+                                        <a href="#tab_1-1" data-toggle="tab">Meal Assessment</a>
+                                    </li>
+                                    <li id="li_tab_2-2">
+                                        <a href="#tab_2-2" data-toggle="tab">Nutritional Assessment</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1-1">
+                                        <h4>Meal Assessment</h4>
+
+                                        <div style="margin: auto; width: 70%;">
+                                            <table id="rateEnergyMeals" class="table table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Rate Energy Meals</th>
+                                                    <th style="width: 190px;">Energy</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Breakfast*</label>
+                                                    </td>
+                                                    <td class="form-group">
+
+                                                        <input id="breakfast" th:field="*{breakfast}" type="text"
+                                                               class="form-control hsts hsts-num" placeholder="Breakfast"/>
+                                                        <div class="help-block with-errors" id="invalidbreakfast"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">BreakTime Morning*</label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input id="breakTimeMorning" th:field="*{breakTimeMorning}" type="text"
+                                                               class="form-control hsts hsts-num" placeholder="BreakTime Morning"/>
+                                                        <div class="help-block with-errors" id="invalidbreakTimeMorning"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Lunch*</label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input id="lunch" th:field="*{lunch}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Lunch"/>
+                                                        <div class="help-block with-errors" id="invalidlunch"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="control-label">BreakTime Afternoon*</label></td>
+                                                    <td class="form-group">
+                                                        <input id="breakTimeAfternoon" th:field="*{breakTimeAfternoon}" type="text"
+                                                               class="form-control hsts hsts-num" placeholder="BreakTime Afternoon"/>
+                                                        <div class="help-block with-errors" id="invalidbreakTimeAfternoon"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="control-label">Dinner*</label></td>
+                                                    <td class="form-group">
+                                                        <input id="dinner" th:field="*{dinner}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Dinner"/>
+                                                        <div class="help-block with-errors" id="invaliddinner"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="control-label">Eat Late At Night*</label></td>
+                                                    <td class="form-group">
+                                                        <input id="eatLateAtNight" th:field="*{eatLateAtNight}" type="text"
+                                                               class="form-control hsts hsts-num" placeholder="Eat Late At Night"/>
+                                                        <div class="help-block with-errors" id="invalideatLateAtNight"></div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="">
+                                            <a onclick="validateAndChangeTab('#tab_2-2', '#li_tab_2-2')" data-toggle="tab"
+                                               class="btn btn-primary pull-right">Next</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_2-2">
+                                        <h4>Nutritional Assessment</h4>
+
+                                        <div style="margin: auto;">
+                                            <table id="evaluationIndex" class="table table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Evaluation Index</th>
+                                                    <th style="width: 160px;">Result</th>
+                                                    <th>Evaluation Index</th>
+                                                    <th style="width: 160px;">Result</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Starch* (g)</label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input id="starch" th:field="*{starch}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Starch"/>
+                                                        <div class="help-block with-errors" id="invalidstarch"></div>
+                                                    </td>
+
+                                                    <td><label class="control-label">Iron* /1000 Kcal (mg)</label></td>
+                                                    <td class="form-group">
+                                                        <input id="iron" th:field="*{iron}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Iron"/>
+                                                        <div class="help-block with-errors" id="invalidiron"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Protein* (g)</label>
+                                                    </td>
+                                                    <td class="form-group">
+                                                        <input id="protein" th:field="*{protein}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Protein" data-remote="/validateData" data-error="Wrong input"/>
+                                                        <div class="help-block with-errors" id="invalidprotein"></div>
+                                                    </td>
+
+                                                    <td>
+                                                        <label class="control-label">Zinc* /1000 Kcal (mg)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="zinc" th:field="*{zinc}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Zinc"/>
+                                                        <div class="help-block with-errors" id="invalidzinc"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Fat* (g)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="fat" th:field="*{fat}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Fat"/>
+                                                        <div class="help-block with-errors" id="invalidfat"></div>
+                                                    </td>
+
+                                                    <td>
+                                                        <label class="control-label">Vitamin B1*/1000 Kcal (mg)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="vitaminB1" th:field="*{vitaminB1}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Vitamin B1"/>
+                                                        <div class="help-block with-errors" id="invalidvitaminB1"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Animal Protein* (g)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="animalProtein" th:field="*{animalProtein}" type="text"
+                                                               class="form-control hsts hsts-num" placeholder="Animal Protein"/>
+                                                        <div class="help-block with-errors" id="invalidanimalProtein"></div>
+                                                    </td>
+
+                                                    <td>
+                                                        <label class="control-label">Vitamin C*/1000 Kcal (mg)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="vitaminC" th:field="*{vitaminC}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Vitamin C"/>
+                                                        <div class="help-block with-errors" id="invalidvitaminC"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">Animal Fat* (g)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="animalFat" th:field="*{animalFat}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Animal Fat"/>
+                                                        <div class="help-block with-errors" id="invalidanimalFat"></div>
+                                                    </td>
+
+                                                    <td><label class="control-label">Vitamin B2*/1000 Kcal (mg)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="vitaminB2" th:field="*{vitaminB2}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Vitamin B2"/>
+                                                        <div class="help-block with-errors" id="invalidvitaminB2"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="control-label">Calcium* (mg)</label></td>
+                                                    <td>
+                                                        <input id="calcium" th:field="*{calcium}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Calcium"/>
+                                                        <div class="help-block with-errors" id="invalidcalcium"></div>
+                                                    </td>
+
+                                                    <td><label class="control-label">Vitamin PP*/1000 Kcal (mg)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input id="vitaminPP" th:field="*{vitaminPP}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Vitamin PP"/>
+                                                        <div class="help-block with-errors" id="invalidvitaminPP"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="control-label">Sodium* (mg)</label></td>
+                                                    <td>
+                                                        <input id="sodium" th:field="*{sodium}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Sodium"/>
+                                                        <div class="help-block with-errors" id="invalidsodium"></div>
+                                                    </td>
+
+                                                    <td><label class="control-label">Fiber* (g)</label></td>
+                                                    <td>
+                                                        <input id="fiber" th:field="*{fiber}" type="text" class="form-control hsts hsts-num"
+                                                               placeholder="Fiber" data-remote="/validateData" data-error="Wrong input"/>
+                                                        <div class="help-block with-errors" id="invalidfiber"></div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="">
+                                            <a onclick="changeTab('#tab_1-1', '#li_tab_1-1')" data-toggle="tab"
+                                               class="btn btn-default">Previous</a>
+                                            <a class="btn btn-primary pull-right" onclick="validateAndOpenModal('#myModal')">Done</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Confirm Box</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Are you sure to make this Food Ingredient?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.Modal -->
+
+                        </form>
+                        <!-- /.form -->
+                    </div>
+                    <!-- /.box-body -->
+
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+    <!-- jQuery -->
+    <script th:inline="javascript">
+        var voiceModel = [[${voiceModel}]];
+    </script>
+    <script th:src="@{/static/bower/jquery/dist/jquery.min.js}"></script>
+    <!-- jquery validation -->
+    <script th:src="@{/static/bower/jquery-validation/dist/jquery.validate.min.js}"></script>
+    <!-- Bootstrap validator-->
+    <!--<script th:src="@{/static/bower/bootstrap-validator/dist/validator.min.js}"/>-->
+    <!--<script th:src="@{/static/js/bootstrap-validator-ext.js}"></script>-->
+
+    <script th:src="@{/static/js/nutrition.js}"></script>
+</div>
+<!-- /.content-wrapper -->
+</body>
+</html>

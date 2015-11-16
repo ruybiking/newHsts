@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+
+<p style="border-top: 1px solid #d2d6de;padding: 15px 0px 0px 15px;"><i class="fa fa-user"></i> Patient's Profile</p>
+<!-- box-body -->
+<div class="box-body" th:with="ACC=${PATIENT.account}">
+    <label class="control-label">Name:</label>
+
+    <input type="text" readonly="readonly" class="form-control hsts" style="text-align: right;border: none;background-color: inherit;box-shadow: none;"
+           th:value="${ACC.fullName}"/>
+    <label class="control-label">BirthDay:</label>
+
+    <input type="text" readonly="readonly" style="text-align: right;border: none;background-color: inherit;box-shadow: none;" class="form-control"
+           th:value="${#dates.format(ACC.dateOfBirth, 'dd-MM-yyyy')}"/>
+
+    <label class="control-label">Gender:</label>
+
+    <input type="text" readonly="readonly" th:if="${ACC.gender == 1}" style="text-align: right;border: none;background-color: inherit;box-shadow: none;"
+           class="form-control" value="Male"/>
+    <input type="text" readonly="readonly" th:if="${ACC.gender == 2}" style="text-align: right;border: none;background-color: inherit;box-shadow: none;"
+           class="form-control" value="Female"/>
+
+    <label class="control-label">BMI:</label>
+
+    <input type="text" readonly="readonly" class="form-control"
+           style="text-align: right;border: none;background-color: inherit;color: #337ab7;;box-shadow: none;font-weight: bold;"
+           th:value="${#numbers.formatDecimal(PREVENTIONCHECK.bmi, 0, 'POINT', 1, 'COMMA')}" th:if="${PREVENTIONCHECK.bmi lt 27}"/>
+    <input type="text" readonly="readonly" class="form-control"
+           style="text-align: right;border: none;background-color: inherit;color: #f0ad4e;box-shadow: none;font-weight: bold;"
+           th:value="${#numbers.formatDecimal(PREVENTIONCHECK.bmi, 0, 'POINT', 1, 'COMMA')}" th:if="${PREVENTIONCHECK.bmi ge 27 and PREVENTIONCHECK.bmi lt 40}"/>
+    <input type="text" readonly="readonly" class="form-control"
+           style="text-align: right;border: none;background-color: inherit;color: #d9534f;box-shadow: none;font-weight: bold;"
+           th:value="${#numbers.formatDecimal(PREVENTIONCHECK.bmi, 0, 'POINT', 1, 'COMMA')}" th:if="${PREVENTIONCHECK.bmi ge 40}"/>
+
+
+    <label for="Medicalhistory" class="control-label">Medical history:</label>
+    <div th:if="!${#lists.isEmpty(MEDI_IMGS)}" style="text-align: right;">
+        <a style="color: #337ab7;" data-toggle="modal" data-target="#medi_img"><span class="fa fa-image"></span> Image</a>
+    </div>
+
+    <textarea class="form-control" readonly="readonly" style="text-align: right;border: none;background-color: inherit;box-shadow: none;"
+              th:text="${MEDI_HIS}"></textarea>
+
+    <label for="clinicalSymptoms" class="control-label">Symptoms:</label>
+
+    <textarea class="form-control" readonly="readonly" style="text-align: right;border: none;background-color: inherit;box-shadow: none;"
+              th:text="${APPOINTMENT.medicalRecord.symptoms}"></textarea>
+
+</div>
+<!-- /.box-body -->
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+
+<h4>Medicines</h4>
+<!-- table medicine -->
+<table class="table table-striped" id="medicine">
+    <tr>
+        <th style="width: 10px">#</th>
+        <th>Medicine</th>
+        <th>Times</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th>Advice</th>
+    </tr>
+    <tr th:each="medicalTreatment,row : ${TREATMENT.medicineTreatmentList}">
+        <td th:text="${row.count}"></td>
+        <td style="min-width: 140px;">
+            <input th:value="${medicalTreatment.medicine.name}" readonly="readonly" class="form-control"/>
+        </td>
+        <td style="min-width: 120px;">
+            <input style="text-align: right;" th:value="${medicalTreatment.numberOfTime}" readonly="readonly" class="form-control"/>
+        </td>
+        <td class="form-group" style="max-width: 120px;">
+            <input type="text" class="form-control"
+                   th:value="${medicalTreatment.quantitative}" style="text-align: right;" readonly="readonly"/>
+        </td>
+        <td class="form-group" style="max-width: 120px;">
+            <input type="text" class="form-control"
+                   th:value="${medicalTreatment.medicine.unit}" readonly="readonly"/>
+        </td>
+        <td>
+            <input th:value="${medicalTreatment.advice}" readonly="readonly" class="form-control"/>
+        </td>
+    </tr>
+
+</table>
+<!-- /.table medicine -->
+
+</body>
+</html>

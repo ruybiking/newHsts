@@ -1,0 +1,10 @@
+<fontFamilies>
+   <fontFamily name="Times New Roman">
+      <normal>static/fonts/TIMES.TTF</normal>
+      <bold>static/fonts/TIMESBD.TTF</bold>
+      <italic>static/fonts/TIMESI.TTF</italic>
+      <boldItalic>static/fonts/TIMESBI.TTF</boldItalic>
+      <pdfEncoding>Identity-H</pdfEncoding>
+      <pdfEmbedded>false</pdfEmbedded>
+   </fontFamily>
+</fontFamilies>

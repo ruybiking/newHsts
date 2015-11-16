@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:body="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="body">
+    <style type="text/css">
+        /*STYLES FOR CSS POPUP*/
+        #blanket {
+            background-color: #111;
+            opacity: 0.65;
+            *background: none;
+            position: absolute;
+            z-index: 9001;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+        }
+
+        #popUpDiv {
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            z-index: 9002;
+        }
+    </style>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Patient's History
+            <small th:text="${MEDICALRECORD.patient.account.fullName}">Patient Name</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Patient's History</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Your Page Content Here -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="form-group row">
+                            <label class="col-sm-1 control-label">Name</label>
+                            <div class="col-sm-3">
+                                <input type="text" th:value="${MEDICALRECORD.patient.account.fullName}" readonly="readonly" class="form-control"/>
+                            </div>
+                            <label class="col-sm-2 control-label">Illness</label>
+                            <div class="col-sm-2">
+                                <input type="text" th:value="*{MEDICALRECORD.illness != null}? ${MEDICALRECORD.illness.name} : ''" readonly="readonly" class="form-control"/>
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-2" style="margin-right: 0px;">
+                                <a th:href="@{/createPrescription(patientID=${MEDICALRECORD.patient.id})}" class="btn btn-primary">Prescription</a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 control-label">BirthDay</label>
+                            <div class="col-sm-2">
+                                <input type="text" th:value="${#dates.format(MEDICALRECORD.patient.account.dateOfBirth, 'dd-MM-yyyy')}" readonly="readonly" class="form-control"/>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label class="col-sm-2 control-label">Status</label>
+
+                            <div class="col-sm-3">
+                                <input readonly="readonly" class="form-control" th:if="*{MEDICALRECORD.status == 1}" value="WAITING FOR EXAMINATION"/>
+                                <input readonly="readonly" class="form-control" th:if="*{MEDICALRECORD.status == 2}" value="NO ILLNESS"/>
+                                <input readonly="readonly" class="form-control" th:if="*{MEDICALRECORD.status == 3}" value="ON TREATING"/>
+                                <input readonly="readonly" class="form-control" th:if="*{MEDICALRECORD.status == 4}" value="FINISHED"/>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-2" style="margin-right: 0px;">
+                                <a onclick="popup('popUpDiv')" class="btn btn-primary">Appointment</a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 control-label">Gender</label>
+
+                            <div class="col-sm-2">
+                                <input readonly="readonly" type="text" class="form-control" th:value="*{MEDICALRECORD.patient.account.gender == 1}? 'Male' : 'Female'"/>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <label for="Discription" class="col-sm-2 control-label">Discription</label>
+
+                            <div class="col-sm-4">
+                          <textarea th:value="${MEDICALRECORD.symptoms}" type="text" readonly="readonly" class="form-control" id="Discription"
+                                    style="height: 80px; font-size: 14px;"> </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="dataTable" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Appointment</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="appointment,rowStat : ${MEDICALRECORD.appointmentList}">
+                                <td th:text="${rowStat.count}">#</td>
+                                <td><a th:href="@{/makePrescription(appointmentID=${appointment.id})}" th:text="${#dates.format(appointment.meetingDate, 'dd-MM-yyyy')}">Date</a></td>
+                                <td><a th:href="@{/makePrescription(appointmentID=${appointment.id})}" th:text="*{appointment.nextAppointment !=null}? ${#dates.format(appointment.nextAppointment.meetingDate, 'dd-MM-yyyy')} : ''">Appointment</a></td>
+                                <td th:if="*{appointment.status == 1}"><a th:href="@{/makePrescription(appointmentID=${appointment.id})}">Not yet</a></td>
+                                <td th:if="*{appointment.status == 2}"><a th:href="@{/makePrescription(appointmentID=${appointment.id})}">Finished</a></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Appointment</th>
+                                <th>Status</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+    <!--POPUP-->
+    <div id="blanket" style="display:none;"></div>
+    <div id="popUpDiv" style="display:none;">
+        <!-- box -->
+        <div class="box box-success box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Appointment Date</h3>
+
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" onclick="popup('popUpDiv')">
+                        <i class="fa fa-times"></i></button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <form th:action="makeAppointment" method="get" class="form-horizontal">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label" style="margin-left: 15px;">Do you want to make appointment?</label>
+                        <label for="Appointment" class="col-sm-5 control-label">Appointment Date</label>
+
+                        <div class="col-sm-7">
+                            <input type="hidden" th:name="recordID" th:value="${MEDICALRECORD.id}"/>
+                            <input class="form-control" type="text" th:name="appointmentDate" th:value="30/09/2015"
+                                   id="Appointment" data-provide="Appointment"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="reset" class="btn btn-default">No</button>
+                    <button type="submit" class="btn btn-primary pull-right">Yes</button>
+                </div>
+                <!-- /.footer -->
+            </form>
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.popUpDiv -->
+
+    <!-- / POPUP-->
+
+    <!-- REQUIRED JS SCRIPTS -->
+    <!-- jQueryUI -->
+    <script th:src="@{/static/bower/jquery/jquery.js}"></script>
+    <script th:src="@{/static/bower/jquery-ui/jquery-ui.js}"></script>
+    <script>
+        $('#Appointment').datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            defaultDate: "+1w",
+            changeYear: true,
+        });
+
+        function toggle(div_id) {
+            var el = document.getElementById(div_id);
+            if ( el.style.display == 'none' ) { el.style.display = 'block';}
+            else {el.style.display = 'none';}
+        };
+        function blanket_size(popUpDivVar) {
+            if (typeof window.innerWidth != 'undefined') {
+                viewportheight = window.innerHeight;
+            } else {
+                viewportheight = document.documentElement.clientHeight;
+            }
+            if (viewportheight > document.body.parentNode.scrollHeight) {
+                if (viewportheight > document.body.parentNode.clientHeight) {
+                    blanket_height = viewportheight;
+                } else {
+                    if (document.body.parentNode.clientHeight > document.body.parentNode.scrollHeight) {
+                        blanket_height = document.body.parentNode.clientHeight;
+                    } else {
+                        blanket_height = document.body.parentNode.scrollHeight;
+                    }
+                }
+            } else {
+                if (document.body.parentNode.clientHeight > document.body.parentNode.scrollHeight) {
+                    blanket_height = document.body.parentNode.clientHeight;
+                } else {
+                    blanket_height = document.body.parentNode.scrollHeight;
+                }
+            }
+            var blanket = document.getElementById('blanket');
+            blanket.style.height = blanket_height + 'px';
+            var popUpDiv = document.getElementById(popUpDivVar);
+            popUpDiv_height=blanket_height/2-150;//200 is half popup's height
+            popUpDiv.style.top = popUpDiv_height + 'px';
+        };
+        function window_pos(popUpDivVar) {
+            if (typeof window.innerWidth != 'undefined') {
+                viewportwidth = window.innerHeight;
+            } else {
+                viewportwidth = document.documentElement.clientHeight;
+            }
+            if (viewportwidth > document.body.parentNode.scrollWidth) {
+                if (viewportwidth > document.body.parentNode.clientWidth) {
+                    window_width = viewportwidth;
+                } else {
+                    if (document.body.parentNode.clientWidth > document.body.parentNode.scrollWidth) {
+                        window_width = document.body.parentNode.clientWidth;
+                    } else {
+                        window_width = document.body.parentNode.scrollWidth;
+                    }
+                }
+            } else {
+                if (document.body.parentNode.clientWidth > document.body.parentNode.scrollWidth) {
+                    window_width = document.body.parentNode.clientWidth;
+                } else {
+                    window_width = document.body.parentNode.scrollWidth;
+                }
+            }
+            var popUpDiv = document.getElementById(popUpDivVar);
+            window_width=window_width/2-200;//200 is half popup's width
+            popUpDiv.style.left = window_width + 'px';
+        };
+        function popup(windowname) {
+            blanket_size(windowname);
+            window_pos(windowname);
+            toggle('blanket');
+            toggle(windowname);
+        };
+    </script>
+</div>
+<!-- /.content-wrapper -->
+</body>
+</html>

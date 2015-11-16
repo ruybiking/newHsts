@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img th:src="@{|/static/image/${session.USER.role.name}.png|}" class="img-circle" alt="User Image"/>
+            </div>
+            <div class="pull-left info">
+                <p th:text="${session.USER.fullName}"></p>
+                <!-- Status -->
+                <a href="#"><i class="fa fa-circle text-success"></i>
+                    <i th:text="${session.USER.role.name}" style="font-size: 13px;color: #ff0000;"></i></a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="active treeview" th:if="${session.USER.role.name == 'Nurse'}">
+                <ul class="treeview-menu">
+                    <li><a href="registerPatient"> <i class="glyphicon glyphicon-user"></i> Register
+                        Patient</a></li>
+                    <li><a href="searchPatient"><i class="fa fa-users"></i> Patients</a></li>
+                </ul>
+            </li>
+            <li class="active treeview" th:if="${session.USER.role.name == 'Doctor'}">
+                <ul class="treeview-menu">
+                    <li><a href="doctorPatients"><i class="fa fa-users"></i> Patients</a></li>
+                </ul>
+                <div th:if="${PATIENT != null}">
+                    <!-- patient's Profile -->
+                    <div layout:replace="_patientProfileMenu"></div>
+                    <!-- /.patient's Profile -->
+                </div>
+            </li>
+            <li class="active treeview" th:if="${session.USER.role.name == 'Nutrition'}">
+                <ul class="treeview-menu">
+                    <li><a href="nutriPatients"><i class="fa fa-users"></i> Patients</a></li>
+                    <li th:if="${PATIENT != null}"><a th:href="@{/createNutritionByVoice(patientID=${PATIENT.id})}"><i class="fa fa-microphone"></i> Review By Voice</a>
+                    </li>
+                    <li th:if="${PATIENT != null}"><a th:href="@{/createNutrition(patientID=${PATIENT.id})}"><i class="fa fa-area-chart"></i> Nutrition</a></li>
+                </ul>
+                <div th:if="${PATIENT != null}">
+                    <!-- patient's Profile -->
+                    <div layout:replace="_patientProfileMenu"></div>
+                    <!-- /.patient's Profile -->
+                </div>
+            </li>
+            <li class="active treeview" th:if="${session.USER.role.name == 'Doctor Manager'}">
+                <ul class="treeview-menu">
+                    <li><a href="regimens"><i class="fa fa-briefcase"></i> Regimens</a></li>
+                </ul>
+            </li>
+            <li class="active treeview" th:if="${session.USER.role.name == 'Admin'}">
+                <ul class="treeview-menu">
+                    <li><a href="adminAccs"><i class="fa fa-users"></i> Accounts</a></li>
+                </ul>
+            </li>
+            <li class="active treeview" th:if="${session.USER.role.name == 'Staff'}">
+                <ul class="treeview-menu">
+                    <li><a href="viewDevices"><i class="fa fa-briefcase"></i>Manage Device</a></li>
+                    <li><a href="openFormula"><i class="fa fa-users"></i> Manage Formula</a></li>
+                </ul>
+            </li>
+
+        </ul>
+        <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+</aside>
+</body>
+</html>

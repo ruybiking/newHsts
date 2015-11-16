@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+
+<h4>Information checking</h4>
+<!-- table Information -->
+<table class="table table-hsts"  id="information">
+    <tr>
+        <th style="width: 150px;">Basic checking</th>
+        <th colspan="2" style="width: 150px;"></th>
+        <th style="width: 70px;"></th>
+        <th style="width: 170px;">Prevention checking</th>
+        <th colspan="2" style="width: 150px;"></th>
+    </tr>
+
+    <tr>
+        <td>
+            <label class="control-label">Weight</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${PREVENTIONCHECK.weight}" class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Kg</label>
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Body Fat</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${#numbers.formatDecimal(PREVENTIONCHECK.bodyFat, 1, 'POINT', 1, 'COMMA')}"
+                   class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> %</label>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <label class="control-label">Height</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${#numbers.formatDecimal(PREVENTIONCHECK.height, 1, 'POINT', 0, 'COMMA')}"
+                   class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Cm</label>
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Visceral Fat</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${PREVENTIONCHECK.visceralFat}" class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Level</label>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <label class="control-label">Hearth Beat</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${PREVENTIONCHECK.heartBeat}" class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Times/min</label>
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Muscle Mass</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${#numbers.formatDecimal(PREVENTIONCHECK.muscleMass, 1, 'POINT', 1, 'COMMA')}"
+                   class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> %</label>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <label class="control-label">Blood Pressure</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${PREVENTIONCHECK.bloodPressure}" class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> mmHg</label>
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Body Water</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${#numbers.formatDecimal(PREVENTIONCHECK.bodyWater, 1, 'POINT', 1, 'COMMA')}"
+                   class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> %</label>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <label class="control-label">Waists</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${PREVENTIONCHECK.waists}" class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Cm</label>
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Phase Angle</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${#numbers.formatDecimal(PREVENTIONCHECK.phaseAngle, 1, 'POINT', 1, 'COMMA')}"
+                   class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> o</label>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3">
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Impedance</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${PREVENTIONCHECK.impedance}" class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Ohm</label>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3">
+        </td>
+        <td></td>
+        <td>
+            <label class="control-label">Basal Metabolic Rate</label>
+        </td>
+        <td>
+            <input type="text"
+                   th:value="${#numbers.formatDecimal(PREVENTIONCHECK.basalMetabolicRate, 1, 'POINT', 1, 'COMMA')}"
+                   class="form-control hsts hsts-num" readonly="readonly"/>
+        </td>
+        <td>
+            <label class="control-label"> Kcal</label>
+        </td>
+    </tr>
+</table>
+<!-- /.table Information -->
+
+</body>
+</html>

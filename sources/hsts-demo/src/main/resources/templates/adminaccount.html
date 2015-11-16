@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="body">
+    <section class="content-header">
+        <h1>
+            Profile
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="listuser.html">Admin</a></li>
+            <li class="active">Accounts</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Your Page Content Here -->
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Account Profile</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form action="updateAccount" method="POST" class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Username</label>
+
+                                    <div class="col-sm-3">
+                                        <input type="hidden" name="id" th:value="${account.id}"/>
+                                        <input type="text" readonly="true" class="form-control" name="name" th:value="${account.username}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Reset Password</label>
+
+                                    <div class="col-sm-3">
+                                        <a href="" class="btn btn-default">Reset Password</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">FullName</label>
+
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="fullName" placeholder="FullName" th:value="${account.fullName}"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Email</label>
+
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="email" placeholder="Email" th:value="${account.email}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Role</label>
+                                    <div  class="col-sm-3" th:if="${account.role.name =='Admin'}">
+                                        <input type="text" readonly="true" class="form-control" name="role.name" th:value="${account.role.name}"/>
+                                    </div>
+                                    <div class="col-sm-5 ui-widget" th:if="${account.role.name !='Admin'}">
+                                        <select name="role.name" th:field="${account.role.name}">
+                                            <option value="...">Select one...</option>
+                                            <option value="Doctor">Doctor</option>
+                                            <option value="DoctorManager">Doctor Manager</option>
+                                            <option value="Nurse">Nurse</option>
+                                            <option value="Staff">Staff</option>
+                                            <option value="Admin" th:if="${account.role.name =='Admin'}">Admin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Status</label>
+                                    <div  class="col-sm-3" th:if="${account.role.name =='Admin'}">
+                                        <input type="text" readonly="true" class="form-control" name="status" th:value="${account.role.name}"/>
+                                    </div>
+
+                                    <div class="col-sm-5 ui-widget" th:if="${account.role.name !='Admin'}">
+                                        <select name="status" th:field="${account.status}" th:disabled="${account.role.name =='Admin'}">
+                                            <option value="1">In-Active</option>
+                                            <option value="2">Active</option>
+                                            <option value="3">Block</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <input type="submit" name="action" class="btn btn-default" value="Cancel"/>
+                                <input type="submit" name="action" value="Update" class="btn btn-primary pull-right"/>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<!-- /.content-wrapper -->
+
+</body>
+</html>

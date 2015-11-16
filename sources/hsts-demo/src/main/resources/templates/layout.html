@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Health Support Tracking System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/static/bower/fontawesome/css/font-awesome.min.css}"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" th:href="@{/static/bower/ionicons/css/ionicons.min.css}"/>
+    <!-- dataTables -->
+    <link rel="stylesheet" th:href="@{/static/bower/admin-lte/plugins/datatables/jquery.dataTables.min.css}"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/static/bower/admin-lte/dist/css/AdminLTE.min.css}"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" th:href="@{/static/bower/admin-lte/dist/css/skins/_all-skins.min.css}"/>
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" th:href="@{/static/bower/admin-lte/bootstrap/css/bootstrap.min.css}"/>
+    <!-- jQueryUI -->
+    <link rel="stylesheet" th:href="@{/static/bower/jquery-ui/themes/smoothness/jquery-ui.css}"/>
+    <style>
+        input.hsts{
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background-color: inherit !important;
+            box-shadow: none;
+        }
+
+        input.hsts-num{
+            text-align: right;
+        }
+
+        input.hsts:hover{
+            border: none;
+            border-bottom: 1px solid #31b0d5;
+            background-color: inherit !important;
+        }
+
+        .with-errors{
+            color: red;
+        }
+        .error{
+            color: red;
+            border: 1px solid red;
+        }
+        label.error{
+            color: red;
+            border: none;
+        }
+        span.error{
+            color: red;
+            border: none;
+        }
+
+        .table-hsts>thead>tr>th,
+        .table-hsts>tbody>tr>th,
+        .table-hsts>tfoot>tr>th,
+        .table-hsts>thead>tr>td,
+        .table-hsts>tbody>tr>td,
+        .table-hsts>tfoot>tr>td {
+            border-top: none;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-green-light sidebar-mini">
+<div class="wrapper">
+
+    <!-- header -->
+    <div layout:replace="header"></div>
+    <!-- /.header -->
+
+    <!-- menu -->
+    <div layout:replace="menu"></div>
+    <!-- /.menu -->
+
+    <!-- body -->
+    <div layout:fragment="body"></div>
+    <!-- /.body -->
+
+    <!-- footer -->
+    <div layout:replace="footer"></div>
+    <!-- /.footer -->
+</div>
+<!-- ./wrapper -->
+<input id="METHOD" th:value="${METHOD}" th:type="hidden"/>
+<input id="MESSAGE" th:value="${MESSAGE}" th:type="hidden"/>
+<input id="TYPE" th:value="${TYPE}" th:type="hidden"/>
+<!-- REQUIRED JS SCRIPTS -->
+<!-- jQuery -->
+<script type="text/javascript" th:src="@{/static/bower/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.5 -->
+<script type="text/javascript" th:src="@{/static/bower/admin-lte/bootstrap/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script type="text/javascript" th:src="@{/static/bower/admin-lte/dist/js/app.min.js}"></script>
+<!-- bootstrap-notify -->
+<script type="text/javascript"
+        th:src="@{/static/bower/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js}"></script>
+<!-- DataTables -->
+<script type="text/javascript" th:src="@{/static/bower/admin-lte/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/bower/admin-lte/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#dataTable").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "ordering": true,
+            "info": true
+        });
+    });
+    function markAllasRead(){
+        $.ajax({
+            url: "markAllReaded",
+            data: "",
+            success: function (result) {
+                return notifyScheduler();
+            }
+        });
+    }
+    function notifyScheduler() {
+        $.getJSON("notifyWeb", function (result) {
+            // Set num notify.
+            var num = result.length;
+            // Delete Num.
+            $("#notifyNum").html('');
+            // Add Num.
+            if(num != 0){
+                $("#notifyNum").html(num);
+            }
+
+            // Delete row.
+            $("#notifyRow").html('');
+            // Add row.
+
+            $.each(result, function (i, field) {
+                $("#notifyRow").append(
+                        '<li>' +
+                        '<a href="' + field.targetLink + '">' +
+                        '<i class="fa fa-users text-aqua"></i>' + field.message + '</a>' +
+                        '</li>'
+                )
+            })
+
+        })
+    };
+    $(document).ready(function () {
+        var notifyInit = setTimeout(notifyScheduler, 10);
+//        var notify = setInterval(notifyScheduler, 10000);
+        var method = $('#METHOD').val();
+        var mes = $('#MESSAGE').val();
+        var ty = $('#TYPE').val();
+        if (method != "") {
+            if (method != undefined) {
+                $.notify({
+                    // options
+                    title: method,
+                    message: mes,
+                    target: '_blank'
+                }, {
+                    // settings
+                    element: 'body',
+                    position: null,
+                    type: ty,
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    showProgressbar: false,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    offset: 20,
+                    spacing: 10,
+                    z_index: 1031,
+                    delay: 5000,
+                    timer: 1000,
+                    url_target: '_blank',
+                    animate: {
+                        enter: 'animated fadeInDown',
+                        exit: 'animated fadeOutUp'
+                    },
+                    icon_type: 'class',
+                    template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                    '<span data-notify="title">{1}</span><br/> ' +
+                    '<span data-notify="message">{2}</span>' +
+                    '<div class="progress" data-notify="progressbar">' +
+                    '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                    '</div>' +
+                    '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                    '</div>'
+                });
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
